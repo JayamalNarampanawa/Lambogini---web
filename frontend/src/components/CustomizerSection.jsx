@@ -176,48 +176,51 @@ const CustomizerSection = () => {
             transition={{ duration: 0.8 }}
             className="glass-panel rounded-2xl p-4 h-[500px]"
           >
-            <Canvas shadows>
-              <PerspectiveCamera makeDefault position={[6, 2, 6]} fov={50} />
+            {/* runtime toggle to disable 3D for debugging: set localStorage.enable3d = 'false' */}
+            {typeof window !== 'undefined' && window.localStorage && window.localStorage.getItem('enable3d') === 'false' ? null : (
+              <Canvas shadows>
+                <PerspectiveCamera makeDefault position={[6, 2, 6]} fov={50} />
 
-              {/* Lighting */}
-              <ambientLight intensity={0.3} />
-              <spotLight
-                position={[10, 10, 10]}
-                angle={0.3}
-                penumbra={1}
-                intensity={2}
-                castShadow
-              />
-              <pointLight position={[0, 5, 0]} intensity={0.5} />
+                {/* Lighting */}
+                <ambientLight intensity={0.3} />
+                <spotLight
+                  position={[10, 10, 10]}
+                  angle={0.3}
+                  penumbra={1}
+                  intensity={2}
+                  castShadow
+                />
+                <pointLight position={[0, 5, 0]} intensity={0.5} />
 
-              {/* Contact shadows for grounding */}
-              <ContactShadows rotation-x={Math.PI / 2} position={[0, -0.5, 0]} opacity={0.8} width={6} blur={2} far={1.5} />
-              {/* Environment */}
-              <Environment preset="night" />
+                {/* Contact shadows for grounding */}
+                <ContactShadows rotation-x={Math.PI / 2} position={[0, -0.5, 0]} opacity={0.8} width={6} blur={2} far={1.5} />
+                {/* Environment */}
+                <Environment preset="night" />
 
-              {/* Customizable Car */}
-              <CustomizableCar
-                bodyColor={bodyColor}
-                wheelStyle={wheelStyle}
-                interior={interior}
-                lighting={lighting}
-              />
+                {/* Customizable Car */}
+                <CustomizableCar
+                  bodyColor={bodyColor}
+                  wheelStyle={wheelStyle}
+                  interior={interior}
+                  lighting={lighting}
+                />
 
-              {/* Ground */}
-              <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.5, 0]} receiveShadow>
-                <planeGeometry args={[20, 20]} />
-                <meshStandardMaterial color="#0A0A0A" metalness={0.8} roughness={0.2} />
-              </mesh>
+                {/* Ground */}
+                <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.5, 0]} receiveShadow>
+                  <planeGeometry args={[20, 20]} />
+                  <meshStandardMaterial color="#0A0A0A" metalness={0.8} roughness={0.2} />
+                </mesh>
 
-              {/* Controls */}
-              <OrbitControls
-                enableZoom={true}
-                enablePan={false}
-                minDistance={4}
-                maxDistance={10}
-                autoRotate={false}
-              />
-            </Canvas>
+                {/* Controls */}
+                <OrbitControls
+                  enableZoom={true}
+                  enablePan={false}
+                  minDistance={4}
+                  maxDistance={10}
+                  autoRotate={false}
+                />
+              </Canvas>
+            )}
           </motion.div>
 
           {/* Customization Options */}

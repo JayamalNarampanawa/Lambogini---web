@@ -97,6 +97,7 @@ const GalleryCard = ({ image, index }) => {
 };
 
 const GallerySection = () => {
+  const [open, setOpen] = useState(false);
   return (
     <section className="relative min-h-screen py-20 px-6 lg:px-12 bg-[#0A0A0A]" id="gallery">
       {/* Background */}
@@ -156,6 +157,9 @@ const GallerySection = () => {
         </div>
         {open && (
           <div className="fixed inset-0 z-50 bg-black">
+            <div className="absolute top-6 right-6 z-60 p-4">
+              <button onClick={() => setOpen(false)} className="glass-panel px-4 py-2 rounded-full text-sm">Close</button>
+            </div>
             <GalleryTunnel3D images={galleryImages} onClose={() => setOpen(false)} />
           </div>
         )}

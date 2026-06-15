@@ -160,6 +160,11 @@ const Scene = ({ onHotspot }) => {
 };
 
 const Showroom3D = ({ onHotspot }) => {
+    // runtime toggle to disable 3D for debugging (set localStorage.enable3d = 'false')
+    if (typeof window !== 'undefined' && window.localStorage && window.localStorage.getItem('enable3d') === 'false') {
+        return null;
+    }
+
     return (
         <Canvas shadows gl={{ antialias: true }} camera={{ position: [6, 2.2, 6], fov: 40 }} className="w-full h-full">
             <Scene onHotspot={onHotspot || (() => { })} />
