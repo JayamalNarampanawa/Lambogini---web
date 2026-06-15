@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import CountUp from 'react-countup';
 import { Gauge, Zap, Timer, Cog } from 'lucide-react';
+import { useScroll } from '@/lib/ScrollContext';
 
 const performanceData = [
   {
@@ -35,7 +36,7 @@ const performanceData = [
   }
 ];
 
-const PerformanceCard = ({ data, index }) => {
+const PerformanceCard = ({ data, index, animate }) => {
   const Icon = data.icon;
   
   return (
@@ -75,7 +76,7 @@ const PerformanceCard = ({ data, index }) => {
 
         {/* Value */}
         <div className="mb-4">
-          <div 
+            <div 
             className="text-5xl font-black tracking-tighter"
             style={{ 
               fontFamily: 'Unbounded',
@@ -83,12 +84,16 @@ const PerformanceCard = ({ data, index }) => {
               textShadow: `0 0 30px ${data.color}80`
             }}
           >
-            <CountUp 
-              end={data.value} 
-              duration={2.5}
-              decimals={data.decimals || 0}
-              suffix={data.suffix}
-            />
+            {animate ? (
+              <CountUp 
+                end={data.value} 
+                duration={2.5}
+                decimals={data.decimals || 0}
+                suffix={data.suffix}
+              />
+            ) : (
+              <span>0{data.suffix}</span>
+            )}
           </div>
         </div>
 
@@ -117,6 +122,8 @@ const PerformanceCard = ({ data, index }) => {
 };
 
 const PerformanceSection = () => {
+  const { section } = useScroll();
+  const animate = section >= 2; // performance is the 3rd section (index 2)
   return (
     <section className="relative min-h-screen py-20 px-6 lg:px-12 bg-[#0A0A0A]" id="performance">
       {/* Animated background */}
@@ -178,7 +185,7 @@ const PerformanceSection = () => {
         {/* Performance Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {performanceData.map((data, index) => (
-            <PerformanceCard key={index} data={data} index={index} />
+            <PerformanceCard key={index} data={data} index={index} animate={animate} />
           ))}
         </div>
 

@@ -7,6 +7,7 @@ import GallerySection from '@/components/GallerySection';
 import BookingSection from '@/components/BookingSection';
 import Footer from '@/components/Footer';
 import LoadingScreen from '@/components/LoadingScreen';
+import { ScrollProvider } from '@/lib/ScrollContext';
 
 const HomePage = () => {
   const [loading, setLoading] = useState(true);
@@ -25,15 +26,17 @@ const HomePage = () => {
   }
 
   return (
-    <div className="relative">
-      <HeroSection />
-      <ModelsSection />
-      <PerformanceSection />
-      <CustomizerSection />
-      <GallerySection />
-      <BookingSection />
-      <Footer />
-    </div>
+    <ScrollProvider>
+      <div className="relative">
+        <HeroSection />
+        <ModelsSection />
+        <PerformanceSection />
+        <CustomizerSection />
+        <GallerySection />
+        <BookingSection />
+        <Footer />
+      </div>
+    </ScrollProvider>
   );
 };
 

@@ -1,7 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, PerspectiveCamera, Environment } from '@react-three/drei';
+import { OrbitControls, PerspectiveCamera, Environment, ContactShadows } from '@react-three/drei';
 import { motion } from 'framer-motion';
+import { toast } from 'sonner';
 import { Palette, Disc, Sofa, Lightbulb } from 'lucide-react';
 import * as THREE from 'three';
 
@@ -189,6 +190,8 @@ const CustomizerSection = () => {
               />
               <pointLight position={[0, 5, 0]} intensity={0.5} />
               
+              {/* Contact shadows for grounding */}
+              <ContactShadows rotation-x={Math.PI / 2} position={[0, -0.5, 0]} opacity={0.8} width={6} blur={2} far={1.5} />
               {/* Environment */}
               <Environment preset="night" />
               
@@ -346,6 +349,15 @@ const CustomizerSection = () => {
               data-testid="save-configuration-btn"
               className="w-full py-4 bg-[#E4FF1A] text-black font-bold uppercase tracking-widest text-sm rounded-xl hover:scale-105 transition-all duration-300 hover:shadow-[0_0_30px_rgba(228,255,26,0.5)]"
               style={{ fontFamily: 'Outfit' }}
+              onClick={() => {
+                const cfg = { bodyColor, wheelStyle, interior, lighting };
+                try {
+                  localStorage.setItem('draftly.customizer', JSON.stringify(cfg));
+                  toast.success('Configuration saved locally');
+                } catch (e) {
+                  toast.error('Failed to save configuration');
+                }
+              }}
             >
               Save Configuration
             </button>

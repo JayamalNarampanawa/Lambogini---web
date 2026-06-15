@@ -64,6 +64,23 @@ const LoadingScreen = () => {
                 filter: 'drop-shadow(0 0 8px rgba(228, 255, 26, 0.6))'
               }}
             />
+
+            {/* Needle */}
+            <g transform="translate(50,50)">
+              <motion.line
+                x1="0"
+                y1="0"
+                x2="38"
+                y2="0"
+                stroke="#FFFFFF"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                style={{ originX: '0px', originY: '0px' }}
+                animate={{ rotate: (progress / 100) * 220 - 110 }}
+                transition={{ type: 'spring', stiffness: 120, damping: 18 }}
+              />
+              <circle cx="0" cy="0" r="2.2" fill="#E4FF1A" />
+            </g>
           </svg>
 
           {/* Center content */}

@@ -1,5 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
+import GalleryTunnel3D from './GalleryTunnel3D';
 
 const galleryImages = [
   {
@@ -149,6 +151,14 @@ const GallerySection = () => {
             Explore every angle of automotive excellence. Each image tells a story of precision, power, and passion.
           </p>
         </motion.div>
+        <div className="flex justify-center mb-8">
+          <button onClick={() => setOpen(true)} className="px-6 py-3 rounded-full bg-[#E4FF1A] text-black font-bold">Enter 3D Gallery</button>
+        </div>
+        {open && (
+          <div className="fixed inset-0 z-50 bg-black">
+            <GalleryTunnel3D images={galleryImages} onClose={() => setOpen(false)} />
+          </div>
+        )}
 
         {/* Gallery Grid */}
         <div 

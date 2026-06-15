@@ -30,6 +30,13 @@ const BookingSection = () => {
     setIsSubmitting(true);
 
     try {
+      // quick health check
+      try {
+        await axios.get(`${API}/` , { timeout: 2000 });
+      } catch (hcErr) {
+        console.warn('API health check failed', hcErr);
+      }
+
       const response = await axios.post(`${API}/bookings`, formData);
       toast.success('Test drive booked successfully! We\'ll contact you soon.');
       

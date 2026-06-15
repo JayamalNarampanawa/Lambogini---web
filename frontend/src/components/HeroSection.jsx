@@ -1,144 +1,9 @@
-import React, { useRef, useState } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, PerspectiveCamera, Environment, Float, Sparkles } from '@react-three/drei';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import * as THREE from 'three';
-
-// 3D Car Model Component (Placeholder using primitives)
-const CarModel = ({ color = '#E4FF1A' }) => {
-  const carRef = useRef();
-  const [hovered, setHovered] = useState(false);
-
-  useFrame((state) => {
-    if (carRef.current) {
-      // Slow auto-rotation
-      carRef.current.rotation.y += 0.002;
-      
-      // Floating animation
-      carRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.1;
-    }
-  });
-
-  return (
-    <Float speed={2} rotationIntensity={0.2} floatIntensity={0.5}>
-      <group 
-        ref={carRef} 
-        position={[0, 0, 0]}
-        onPointerOver={() => setHovered(true)}
-        onPointerOut={() => setHovered(false)}
-        scale={hovered ? 1.05 : 1}
-      >
-        {/* Car Body */}
-        <mesh position={[0, 0.5, 0]} castShadow>
-          <boxGeometry args={[4, 0.8, 1.8]} />
-          <meshPhysicalMaterial 
-            color={color}
-            metalness={0.9}
-            roughness={0.1}
-            clearcoat={1}
-            clearcoatRoughness={0.1}
-            reflectivity={1}
-          />
-        </mesh>
-        
-        {/* Hood */}
-        <mesh position={[1.5, 0.7, 0]} rotation={[0, 0, -0.2]} castShadow>
-          <boxGeometry args={[1.5, 0.4, 1.6]} />
-          <meshPhysicalMaterial 
-            color={color}
-            metalness={0.9}
-            roughness={0.1}
-            clearcoat={1}
-            clearcoatRoughness={0.1}
-          />
-        </mesh>
-        
-        {/* Roof */}
-        <mesh position={[-0.5, 1, 0]} castShadow>
-          <boxGeometry args={[2, 0.6, 1.5]} />
-          <meshPhysicalMaterial 
-            color="#000000"
-            metalness={0.9}
-            roughness={0.2}
-            transparent
-            opacity={0.3}
-          />
-        </mesh>
-        
-        {/* Spoiler */}
-        <mesh position={[-2.2, 1.2, 0]} castShadow>
-          <boxGeometry args={[0.3, 0.1, 1.8]} />
-          <meshPhysicalMaterial 
-            color={color}
-            metalness={0.9}
-            roughness={0.1}
-          />
-        </mesh>
-        
-        {/* Wheels */}
-        {[-1.3, 1.3].map((x, i) => (
-          <React.Fragment key={i}>
-            {[0.95, -0.95].map((z, j) => (
-              <group key={j} position={[x, 0, z]}>
-                <mesh rotation={[0, 0, Math.PI / 2]} castShadow>
-                  <cylinderGeometry args={[0.4, 0.4, 0.3, 32]} />
-                  <meshStandardMaterial color="#1A1A1A" metalness={0.8} roughness={0.3} />
-                </mesh>
-                {/* Rim */}
-                <mesh rotation={[0, 0, Math.PI / 2]}>
-                  <cylinderGeometry args={[0.25, 0.25, 0.32, 6]} />
-                  <meshStandardMaterial color="#E4FF1A" metalness={1} roughness={0.2} />
-                </mesh>
-              </group>
-            ))}
-          </React.Fragment>
-        ))}
-        
-        {/* Headlights */}
-        {[2, -2].map((x, i) => (
-          <pointLight 
-            key={i}
-            position={[2.2, 0.5, x * 0.5]} 
-            intensity={2} 
-            distance={5} 
-            color="#E4FF1A"
-          />
-        ))}
-      </group>
-    </Float>
-  );
-};
-
-// Ground with grid
-const Ground = () => {
-  return (
-    <>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.5, 0]} receiveShadow>
-        <planeGeometry args={[50, 50]} />
-        <meshStandardMaterial 
-          color="#0A0A0A" 
-          metalness={0.8}
-          roughness={0.2}
-        />
-      </mesh>
-      
-      {/* Grid lines */}
-      <gridHelper args={[50, 50, '#E4FF1A', '#1A1A1A']} position={[0, -0.49, 0]} />
-    </>
-  );
-};
-
-// Particles
-const Particles = () => {
-  return (
-    <>
-      <Sparkles count={100} scale={20} size={2} speed={0.3} color="#E4FF1A" opacity={0.3} />
-      <Sparkles count={50} scale={15} size={3} speed={0.2} color="#00FF66" opacity={0.2} />
-    </>
-  );
-};
+import Showroom3D from './Showroom3D';
 
 const HeroSection = () => {
+  const [hotspot, setHotspot] = useState(null);
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
@@ -147,55 +12,80 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="relative h-screen w-full overflow-hidden" id="hero">
-      {/* 3D Canvas Background */}
-      <div className="absolute inset-0 z-0">
-        <Canvas shadows>
-          <PerspectiveCamera makeDefault position={[8, 3, 8]} fov={50} />
-          
-          {/* Lighting */}
-          <ambientLight intensity={0.2} />
-          <spotLight
-            position={[10, 10, 10]}
-            angle={0.3}
-            penumbra={1}
-            intensity={2}
-            castShadow
-            color="#E4FF1A"
+    <section className="relative h-screen w-full overflow-hidden bg-[#050505]" id="hero">
+      {/* Animated Background */}
+      <div className="absolute inset-0">
+        {/* Gradient orbs */}
+        {[...Array(5)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute rounded-full"
+            style={{
+              width: `${300 + i * 100}px`,
+              height: `${300 + i * 100}px`,
+              background: `radial-gradient(circle, ${
+                i % 2 === 0 ? '#E4FF1A' : '#00FF66'
+              }${i === 0 ? '15' : '08'} 0%, transparent 70%)`,
+              left: `${20 + i * 15}%`,
+              top: `${10 + i * 15}%`,
+              filter: 'blur(60px)',
+            }}
+            animate={{
+              y: [0, 100, 0],
+              x: [0, 50, 0],
+              scale: [1, 1.2, 1],
+            }}
+            transition={{
+              duration: 10 + i * 2,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
           />
-          <spotLight
-            position={[-10, 10, -10]}
-            angle={0.3}
-            penumbra={1}
-            intensity={1.5}
-            color="#00FF66"
+        ))}
+        
+        {/* Grid pattern */}
+        <div className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(228, 255, 26, 0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(228, 255, 26, 0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '50px 50px',
+          }}
+        />
+        
+        {/* Car silhouette with 3D effect */}
+        <motion.div
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-[1100px] h-[420px]"
+          initial={{ opacity: 0, scale: 0.92 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 0.3 }}
+        >
+          <div className="w-full h-full rounded-2xl overflow-hidden">
+            <Showroom3D onHotspot={(label) => setHotspot(label)} />
+          </div>
+        </motion.div>
+
+        {/* Particles */}
+        {[...Array(50)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-[#E4FF1A] rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              opacity: [0, 1, 0],
+              y: [0, -100],
+            }}
+            transition={{
+              duration: 3 + Math.random() * 2,
+              repeat: Infinity,
+              delay: Math.random() * 3,
+            }}
           />
-          <pointLight position={[0, 5, 0]} intensity={0.5} color="#E4FF1A" />
-          
-          {/* Fog */}
-          <fog attach="fog" args={['#050505', 10, 30]} />
-          
-          {/* Environment */}
-          <Environment preset="night" />
-          
-          {/* Scene Elements */}
-          <CarModel />
-          <Ground />
-          <Particles />
-          
-          {/* Controls */}
-          <OrbitControls 
-            enableZoom={true}
-            enablePan={false}
-            minDistance={5}
-            maxDistance={15}
-            minPolarAngle={Math.PI / 4}
-            maxPolarAngle={Math.PI / 2.2}
-            autoRotate={false}
-            enableDamping
-            dampingFactor={0.05}
-          />
-        </Canvas>
+        ))}
       </div>
 
       {/* Content Overlay */}
@@ -236,7 +126,7 @@ const HeroSection = () => {
               Enter the Future<br />of Italian Performance
             </h1>
             <p className="text-base lg:text-lg text-white/80 leading-relaxed max-w-2xl mx-auto" style={{ fontFamily: 'Manrope' }}>
-              An immersive 3D supercar showroom built for speed, luxury, and precision.
+              An immersive supercar showroom built for speed, luxury, and precision.
               Experience automotive perfection in a cinematic digital environment.
             </p>
           </motion.div>
@@ -253,7 +143,7 @@ const HeroSection = () => {
               className="group relative px-8 py-4 bg-[#E4FF1A] text-black font-bold uppercase tracking-widest text-sm rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(228,255,26,0.5)]"
               style={{ fontFamily: 'Outfit' }}
             >
-              <span className="relative z-10">Explore 3D Showroom</span>
+              <span className="relative z-10">Explore Showroom</span>
             </button>
             <button
               data-testid="customize-car-btn"
@@ -265,6 +155,22 @@ const HeroSection = () => {
             </button>
           </motion.div>
         </div>
+
+        {/* Hotspot Info Panel */}
+        {hotspot && (
+          <div className="absolute top-24 right-12 z-20">
+            <div className="glass-panel p-6 rounded-2xl max-w-sm w-80 backdrop-blur-md">
+              <div className="flex justify-between items-start gap-4">
+                <div>
+                  <div className="text-xs text-[#E4FF1A] uppercase tracking-wider">{hotspot}</div>
+                  <h4 className="text-lg font-bold text-white mt-1">Overview</h4>
+                  <p className="text-sm text-white/70 mt-2">Brief information about the {hotspot.toLowerCase()}. Click other hotspots to explore more details.</p>
+                </div>
+                <button onClick={() => setHotspot(null)} className="ml-4 text-white/60 hover:text-white">Close</button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Scroll Indicator */}
         <motion.div

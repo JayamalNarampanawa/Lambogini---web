@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import Showroom3D from './Showroom3D';
 
 const HeroSection = () => {
+  const [hotspot, setHotspot] = useState(null);
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
@@ -53,73 +55,14 @@ const HeroSection = () => {
         
         {/* Car silhouette with 3D effect */}
         <motion.div
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-          initial={{ opacity: 0, scale: 0.8 }}
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-[1100px] h-[420px]"
+          initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.3 }}
         >
-          <motion.div
-            animate={{
-              rotateY: [0, 360],
-              z: [0, 50, 0],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: 'linear',
-            }}
-            style={{
-              transformStyle: 'preserve-3d',
-              perspective: '1000px',
-            }}
-          >
-            {/* Car representation using SVG */}
-            <svg
-              width="600"
-              height="300"
-              viewBox="0 0 600 300"
-              className="drop-shadow-[0_0_50px_rgba(228,255,26,0.5)]"
-            >
-              {/* Car body */}
-              <defs>
-                <linearGradient id="carGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#E4FF1A" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#00FF66" stopOpacity="0.6" />
-                </linearGradient>
-              </defs>
-              
-              {/* Main body */}
-              <rect x="100" y="120" width="400" height="80" fill="url(#carGradient)" rx="10" />
-              
-              {/* Hood */}
-              <polygon points="480,120 500,140 500,180 480,200" fill="url(#carGradient)" opacity="0.9" />
-              
-              {/* Windshield */}
-              <polygon points="300,120 350,80 420,80 450,120" fill="rgba(255,255,255,0.1)" />
-              
-              {/* Roof */}
-              <rect x="300" y="80" width="150" height="40" fill="rgba(0,0,0,0.3)" rx="5" />
-              
-              {/* Wheels */}
-              <circle cx="200" cy="200" r="40" fill="#1A1A1A" stroke="#E4FF1A" strokeWidth="3" />
-              <circle cx="200" cy="200" r="25" fill="#E4FF1A" />
-              
-              <circle cx="420" cy="200" r="40" fill="#1A1A1A" stroke="#E4FF1A" strokeWidth="3" />
-              <circle cx="420" cy="200" r="25" fill="#E4FF1A" />
-              
-              {/* Headlights */}
-              <circle cx="490" cy="150" r="10" fill="#E4FF1A" opacity="0.8">
-                <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite" />
-              </circle>
-              <circle cx="490" cy="170" r="10" fill="#E4FF1A" opacity="0.8">
-                <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite" begin="0.5s" />
-              </circle>
-              
-              {/* Spoiler */}
-              <rect x="80" y="100" width="30" height="5" fill="url(#carGradient)" />
-              <rect x="85" y="95" width="20" height="5" fill="url(#carGradient)" />
-            </svg>
-          </motion.div>
+          <div className="w-full h-full rounded-2xl overflow-hidden">
+            <Showroom3D onHotspot={(label) => setHotspot(label)} />
+          </div>
         </motion.div>
 
         {/* Particles */}
@@ -211,6 +154,22 @@ const HeroSection = () => {
             </button>
           </motion.div>
         </div>
+
+        {/* Hotspot Info Panel */}
+        {hotspot && (
+          <div className="absolute top-24 right-12 z-20">
+            <div className="glass-panel p-6 rounded-2xl max-w-sm w-80 backdrop-blur-md">
+              <div className="flex justify-between items-start gap-4">
+                <div>
+                  <div className="text-xs text-[#E4FF1A] uppercase tracking-wider">{hotspot}</div>
+                  <h4 className="text-lg font-bold text-white mt-1">Overview</h4>
+                  <p className="text-sm text-white/70 mt-2">Brief information about the {hotspot.toLowerCase()}. Click other hotspots to explore more details.</p>
+                </div>
+                <button onClick={() => setHotspot(null)} className="ml-4 text-white/60 hover:text-white">Close</button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Scroll Indicator */}
         <motion.div

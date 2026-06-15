@@ -1,3 +1,49 @@
+# Draftly Frontend (Immersive 3D Showroom)
+
+This frontend is a React app (CRA + CRACO) that provides an immersive 3D showroom experience using React Three Fiber and Tailwind CSS.
+
+Quick start (frontend):
+
+1. Install dependencies
+```bash
+yarn install
+```
+
+2. Start the dev server
+```bash
+yarn start
+```
+
+3. Open http://localhost:3000
+
+Backend API
+
+- The backend is a FastAPI server located in the `backend/` folder. It expects `MONGO_URL` and `DB_NAME` environment variables.
+- Default booking endpoint: `POST http://localhost:8000/api/bookings`
+
+Run backend (example):
+```bash
+cd backend
+pip install -r requirements.txt
+uvicorn server:app --reload --port 8000
+```
+
+Notes
+
+- This project uses React Three Fiber for 3D scenes. If you run into WebGL/context errors, ensure your GPU/drivers support WebGL2 and that `three` is the correct version.
+- The customizer saves a configuration locally to `localStorage` when you click "Save Configuration".
+- The gallery includes an immersive 3D tunnel accessible via the "Enter 3D Gallery" button.
+
+Adding a real 3D car model
+
+- To use a real GLTF/GLB model, place the file at `public/models/car.glb`.
+- The showroom will automatically attempt to load `/models/car.glb`. If the file is missing, the app falls back to a procedural placeholder car.
+- For production, consider compressing the GLB with Draco and serving optimized textures. If you use Draco, add the Draco decoder and configure `useGLTF` loader accordingly.
+
+Production notes
+
+- To optimize three.js assets for production: compress textures (KTX2), use Draco compression for meshes, and generate LODs for complex models.
+- Consider adding a build-time asset pipeline to pre-convert and optimize models.
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
