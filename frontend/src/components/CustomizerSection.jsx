@@ -277,8 +277,8 @@ const CustomizerSection = () => {
                     data-testid={`wheel-style-${style.value}`}
                     onClick={() => setWheelStyle(style.value)}
                     className={`py-3 px-4 rounded-xl border-2 transition-all duration-300 ${wheelStyle === style.value
-                        ? 'border-[#E4FF1A] bg-[#E4FF1A]/10 text-[#E4FF1A]'
-                        : 'border-white/20 hover:border-white/40'
+                      ? 'border-[#E4FF1A] bg-[#E4FF1A]/10 text-[#E4FF1A]'
+                      : 'border-white/20 hover:border-white/40'
                       }`}
                   >
                     <div className="text-sm font-bold uppercase tracking-wider">{style.name}</div>
@@ -333,8 +333,8 @@ const CustomizerSection = () => {
                     data-testid={`lighting-mode-${mode.value}`}
                     onClick={() => setLighting(mode.value)}
                     className={`py-3 px-4 rounded-xl border-2 transition-all duration-300 ${lighting === mode.value
-                        ? 'border-[#E4FF1A] bg-[#E4FF1A]/10 text-[#E4FF1A]'
-                        : 'border-white/20 hover:border-white/40'
+                      ? 'border-[#E4FF1A] bg-[#E4FF1A]/10 text-[#E4FF1A]'
+                      : 'border-white/20 hover:border-white/40'
                       }`}
                   >
                     <div className="text-sm font-bold uppercase tracking-wider">{mode.name}</div>
