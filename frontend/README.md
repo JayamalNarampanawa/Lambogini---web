@@ -5,11 +5,13 @@ This frontend is a React app (CRA + CRACO) that provides an immersive 3D showroo
 Quick start (frontend):
 
 1. Install dependencies
+
 ```bash
 yarn install
 ```
 
 2. Start the dev server
+
 ```bash
 yarn start
 ```
@@ -22,6 +24,7 @@ Backend API
 - Default booking endpoint: `POST http://localhost:8000/api/bookings`
 
 Run backend (example):
+
 ```bash
 cd backend
 pip install -r requirements.txt
@@ -44,6 +47,7 @@ Production notes
 
 - To optimize three.js assets for production: compress textures (KTX2), use Draco compression for meshes, and generate LODs for complex models.
 - Consider adding a build-time asset pipeline to pre-convert and optimize models.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

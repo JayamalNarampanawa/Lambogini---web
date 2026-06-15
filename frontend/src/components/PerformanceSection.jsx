@@ -38,7 +38,7 @@ const performanceData = [
 
 const PerformanceCard = ({ data, index, animate }) => {
   const Icon = data.icon;
-  
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.8 }}
@@ -49,7 +49,7 @@ const PerformanceCard = ({ data, index, animate }) => {
       className="glass-panel rounded-2xl p-8 relative overflow-hidden group hover:border-white/30 transition-all duration-300"
     >
       {/* Glow effect */}
-      <div 
+      <div
         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
         style={{
           background: `radial-gradient(circle at center, ${data.color}10 0%, transparent 70%)`
@@ -60,15 +60,15 @@ const PerformanceCard = ({ data, index, animate }) => {
       <div className="relative z-10">
         {/* Icon */}
         <div className="mb-6">
-          <div 
+          <div
             className="w-16 h-16 rounded-2xl flex items-center justify-center"
             style={{
               background: `${data.color}20`,
               boxShadow: `0 0 20px ${data.color}30`
             }}
           >
-            <Icon 
-              className="w-8 h-8" 
+            <Icon
+              className="w-8 h-8"
               style={{ color: data.color }}
             />
           </div>
@@ -76,17 +76,17 @@ const PerformanceCard = ({ data, index, animate }) => {
 
         {/* Value */}
         <div className="mb-4">
-            <div 
+          <div
             className="text-5xl font-black tracking-tighter"
-            style={{ 
+            style={{
               fontFamily: 'Unbounded',
               color: data.color,
               textShadow: `0 0 30px ${data.color}80`
             }}
           >
             {animate ? (
-              <CountUp 
-                end={data.value} 
+              <CountUp
+                end={data.value}
                 duration={2.5}
                 decimals={data.decimals || 0}
                 suffix={data.suffix}
@@ -169,7 +169,7 @@ const PerformanceSection = () => {
           <div className="text-xs uppercase tracking-[0.3em] text-[#E4FF1A] mb-4" style={{ fontFamily: 'Outfit' }}>
             Engineering Excellence
           </div>
-          <h2 
+          <h2
             className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tighter uppercase mb-6"
             style={{ fontFamily: 'Unbounded' }}
           >
@@ -203,7 +203,7 @@ const PerformanceSection = () => {
                 V12 Hybrid Powerhouse
               </h3>
               <p className="text-white/70 leading-relaxed mb-6" style={{ fontFamily: 'Manrope' }}>
-                Combining the raw power of a naturally aspirated V12 engine with cutting-edge hybrid technology, 
+                Combining the raw power of a naturally aspirated V12 engine with cutting-edge hybrid technology,
                 delivering an unprecedented 1001 horsepower. Experience the perfect harmony of tradition and innovation.
               </p>
               <div className="flex flex-wrap gap-4">
@@ -216,8 +216,8 @@ const PerformanceSection = () => {
               </div>
             </div>
             <div className="relative h-64 rounded-xl overflow-hidden">
-              <img 
-                src="https://images.pexels.com/photos/3802510/pexels-photo-3802510.jpeg" 
+              <img
+                src="https://images.pexels.com/photos/3802510/pexels-photo-3802510.jpeg"
                 alt="Engine"
                 className="w-full h-full object-cover"
               />

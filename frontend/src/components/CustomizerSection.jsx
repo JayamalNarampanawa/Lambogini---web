@@ -33,7 +33,7 @@ const CustomizableCar = ({ bodyColor, wheelStyle, interior, lighting }) => {
       {/* Car Body */}
       <mesh position={[0, 0.5, 0]} castShadow>
         <boxGeometry args={[4, 0.8, 1.8]} />
-        <meshPhysicalMaterial 
+        <meshPhysicalMaterial
           color={bodyColor}
           metalness={0.9}
           roughness={0.1}
@@ -41,22 +41,22 @@ const CustomizableCar = ({ bodyColor, wheelStyle, interior, lighting }) => {
           clearcoatRoughness={0.1}
         />
       </mesh>
-      
+
       {/* Hood */}
       <mesh position={[1.5, 0.7, 0]} rotation={[0, 0, -0.2]} castShadow>
         <boxGeometry args={[1.5, 0.4, 1.6]} />
-        <meshPhysicalMaterial 
+        <meshPhysicalMaterial
           color={bodyColor}
           metalness={0.9}
           roughness={0.1}
           clearcoat={1}
         />
       </mesh>
-      
+
       {/* Roof/Interior */}
       <mesh position={[-0.5, 1, 0]} castShadow>
         <boxGeometry args={[2, 0.6, 1.5]} />
-        <meshPhysicalMaterial 
+        <meshPhysicalMaterial
           color={interior}
           metalness={0.5}
           roughness={0.3}
@@ -64,13 +64,13 @@ const CustomizableCar = ({ bodyColor, wheelStyle, interior, lighting }) => {
           opacity={0.5}
         />
       </mesh>
-      
+
       {/* Spoiler */}
       <mesh position={[-2.2, 1.2, 0]} castShadow>
         <boxGeometry args={[0.3, 0.1, 1.8]} />
         <meshPhysicalMaterial color={bodyColor} metalness={0.9} roughness={0.1} />
       </mesh>
-      
+
       {/* Wheels */}
       {[-1.3, 1.3].map((x, i) => (
         <React.Fragment key={i}>
@@ -83,24 +83,24 @@ const CustomizableCar = ({ bodyColor, wheelStyle, interior, lighting }) => {
               {/* Rim */}
               <mesh rotation={[0, 0, Math.PI / 2]}>
                 <cylinderGeometry args={[0.25, 0.25, 0.32, wheelStyle === 'sport' ? 6 : wheelStyle === 'carbon' ? 8 : 5]} />
-                <meshStandardMaterial 
-                  color={wheelColors[wheelStyle]} 
-                  metalness={1} 
-                  roughness={0.2} 
+                <meshStandardMaterial
+                  color={wheelColors[wheelStyle]}
+                  metalness={1}
+                  roughness={0.2}
                 />
               </mesh>
             </group>
           ))}
         </React.Fragment>
       ))}
-      
+
       {/* Headlights with customizable color */}
       {[0.5, -0.5].map((z, i) => (
-        <pointLight 
+        <pointLight
           key={i}
-          position={[2.2, 0.5, z]} 
-          intensity={2} 
-          distance={5} 
+          position={[2.2, 0.5, z]}
+          intensity={2}
+          distance={5}
           color={lightingColors[lighting]}
         />
       ))}
@@ -154,7 +154,7 @@ const CustomizerSection = () => {
           <div className="text-xs uppercase tracking-[0.3em] text-[#E4FF1A] mb-4" style={{ fontFamily: 'Outfit' }}>
             Make It Yours
           </div>
-          <h2 
+          <h2
             className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tighter uppercase mb-6"
             style={{ fontFamily: 'Unbounded' }}
           >
@@ -178,7 +178,7 @@ const CustomizerSection = () => {
           >
             <Canvas shadows>
               <PerspectiveCamera makeDefault position={[6, 2, 6]} fov={50} />
-              
+
               {/* Lighting */}
               <ambientLight intensity={0.3} />
               <spotLight
@@ -189,28 +189,28 @@ const CustomizerSection = () => {
                 castShadow
               />
               <pointLight position={[0, 5, 0]} intensity={0.5} />
-              
+
               {/* Contact shadows for grounding */}
               <ContactShadows rotation-x={Math.PI / 2} position={[0, -0.5, 0]} opacity={0.8} width={6} blur={2} far={1.5} />
               {/* Environment */}
               <Environment preset="night" />
-              
+
               {/* Customizable Car */}
-              <CustomizableCar 
+              <CustomizableCar
                 bodyColor={bodyColor}
                 wheelStyle={wheelStyle}
                 interior={interior}
                 lighting={lighting}
               />
-              
+
               {/* Ground */}
               <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.5, 0]} receiveShadow>
                 <planeGeometry args={[20, 20]} />
                 <meshStandardMaterial color="#0A0A0A" metalness={0.8} roughness={0.2} />
               </mesh>
-              
+
               {/* Controls */}
-              <OrbitControls 
+              <OrbitControls
                 enableZoom={true}
                 enablePan={false}
                 minDistance={4}
@@ -242,10 +242,9 @@ const CustomizerSection = () => {
                     key={color.value}
                     data-testid={`body-color-${color.name.toLowerCase().replace(/\s+/g, '-')}`}
                     onClick={() => setBodyColor(color.value)}
-                    className={`relative w-14 h-14 rounded-xl transition-all duration-300 ${
-                      bodyColor === color.value ? 'ring-2 ring-[#E4FF1A] ring-offset-2 ring-offset-[#050505] scale-110' : ''
-                    }`}
-                    style={{ 
+                    className={`relative w-14 h-14 rounded-xl transition-all duration-300 ${bodyColor === color.value ? 'ring-2 ring-[#E4FF1A] ring-offset-2 ring-offset-[#050505] scale-110' : ''
+                      }`}
+                    style={{
                       backgroundColor: color.value,
                       border: '2px solid rgba(255, 255, 255, 0.2)'
                     }}
@@ -274,11 +273,10 @@ const CustomizerSection = () => {
                     key={style.value}
                     data-testid={`wheel-style-${style.value}`}
                     onClick={() => setWheelStyle(style.value)}
-                    className={`py-3 px-4 rounded-xl border-2 transition-all duration-300 ${
-                      wheelStyle === style.value 
-                        ? 'border-[#E4FF1A] bg-[#E4FF1A]/10 text-[#E4FF1A]' 
+                    className={`py-3 px-4 rounded-xl border-2 transition-all duration-300 ${wheelStyle === style.value
+                        ? 'border-[#E4FF1A] bg-[#E4FF1A]/10 text-[#E4FF1A]'
                         : 'border-white/20 hover:border-white/40'
-                    }`}
+                      }`}
                   >
                     <div className="text-sm font-bold uppercase tracking-wider">{style.name}</div>
                   </button>
@@ -300,10 +298,9 @@ const CustomizerSection = () => {
                     key={color.value}
                     data-testid={`interior-color-${color.name.toLowerCase()}`}
                     onClick={() => setInterior(color.value)}
-                    className={`relative w-14 h-14 rounded-xl transition-all duration-300 ${
-                      interior === color.value ? 'ring-2 ring-[#E4FF1A] ring-offset-2 ring-offset-[#050505] scale-110' : ''
-                    }`}
-                    style={{ 
+                    className={`relative w-14 h-14 rounded-xl transition-all duration-300 ${interior === color.value ? 'ring-2 ring-[#E4FF1A] ring-offset-2 ring-offset-[#050505] scale-110' : ''
+                      }`}
+                    style={{
                       backgroundColor: color.value,
                       border: '2px solid rgba(255, 255, 255, 0.2)'
                     }}
@@ -332,11 +329,10 @@ const CustomizerSection = () => {
                     key={mode.value}
                     data-testid={`lighting-mode-${mode.value}`}
                     onClick={() => setLighting(mode.value)}
-                    className={`py-3 px-4 rounded-xl border-2 transition-all duration-300 ${
-                      lighting === mode.value 
-                        ? 'border-[#E4FF1A] bg-[#E4FF1A]/10 text-[#E4FF1A]' 
+                    className={`py-3 px-4 rounded-xl border-2 transition-all duration-300 ${lighting === mode.value
+                        ? 'border-[#E4FF1A] bg-[#E4FF1A]/10 text-[#E4FF1A]'
                         : 'border-white/20 hover:border-white/40'
-                    }`}
+                      }`}
                   >
                     <div className="text-sm font-bold uppercase tracking-wider">{mode.name}</div>
                   </button>

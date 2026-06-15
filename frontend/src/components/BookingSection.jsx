@@ -32,14 +32,14 @@ const BookingSection = () => {
     try {
       // quick health check
       try {
-        await axios.get(`${API}/` , { timeout: 2000 });
+        await axios.get(`${API}/`, { timeout: 2000 });
       } catch (hcErr) {
         console.warn('API health check failed', hcErr);
       }
 
       const response = await axios.post(`${API}/bookings`, formData);
       toast.success('Test drive booked successfully! We\'ll contact you soon.');
-      
+
       // Reset form
       setFormData({
         fullName: '',
@@ -94,7 +94,7 @@ const BookingSection = () => {
           <div className="text-xs uppercase tracking-[0.3em] text-[#E4FF1A] mb-4" style={{ fontFamily: 'Outfit' }}>
             Experience the Thrill
           </div>
-          <h2 
+          <h2
             className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tighter uppercase mb-6"
             style={{ fontFamily: 'Unbounded' }}
           >

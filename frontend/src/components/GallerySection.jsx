@@ -43,8 +43,8 @@ const GalleryCard = ({ image, index }) => {
       whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      whileHover={{ 
-        scale: 1.05, 
+      whileHover={{
+        scale: 1.05,
         rotateY: 5,
         z: 50,
         transition: { duration: 0.3 }
@@ -58,15 +58,15 @@ const GalleryCard = ({ image, index }) => {
     >
       {/* Image */}
       <div className="relative h-80 overflow-hidden">
-        <img 
+        <img
           src={image.url}
           alt={image.title}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
-        
+
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
-        
+
         {/* Glow Effect */}
         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           style={{
@@ -101,7 +101,7 @@ const GallerySection = () => {
     <section className="relative min-h-screen py-20 px-6 lg:px-12 bg-[#0A0A0A]" id="gallery">
       {/* Background */}
       <div className="absolute inset-0 carbon-texture opacity-20"></div>
-      
+
       {/* Floating lights */}
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(5)].map((_, i) => (
@@ -139,7 +139,7 @@ const GallerySection = () => {
           <div className="text-xs uppercase tracking-[0.3em] text-[#E4FF1A] mb-4" style={{ fontFamily: 'Outfit' }}>
             Visual Journey
           </div>
-          <h2 
+          <h2
             className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tighter uppercase mb-6"
             style={{ fontFamily: 'Unbounded' }}
           >
@@ -161,7 +161,7 @@ const GallerySection = () => {
         )}
 
         {/* Gallery Grid */}
-        <div 
+        <div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           style={{
             perspective: '2000px'

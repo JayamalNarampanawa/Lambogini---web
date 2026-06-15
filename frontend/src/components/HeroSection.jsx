@@ -23,9 +23,8 @@ const HeroSection = () => {
             style={{
               width: `${300 + i * 100}px`,
               height: `${300 + i * 100}px`,
-              background: `radial-gradient(circle, ${
-                i % 2 === 0 ? '#E4FF1A' : '#00FF66'
-              }${i === 0 ? '15' : '08'} 0%, transparent 70%)`,
+              background: `radial-gradient(circle, ${i % 2 === 0 ? '#E4FF1A' : '#00FF66'
+                }${i === 0 ? '15' : '08'} 0%, transparent 70%)`,
               left: `${20 + i * 15}%`,
               top: `${10 + i * 15}%`,
               filter: 'blur(60px)',
@@ -42,7 +41,7 @@ const HeroSection = () => {
             }}
           />
         ))}
-        
+
         {/* Grid pattern */}
         <div className="absolute inset-0 opacity-10"
           style={{
@@ -53,7 +52,7 @@ const HeroSection = () => {
             backgroundSize: '50px 50px',
           }}
         />
-        
+
         {/* Car silhouette with 3D effect */}
         <motion.div
           className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-[1100px] h-[420px]"
@@ -100,7 +99,7 @@ const HeroSection = () => {
           <div className="text-3xl font-black tracking-tighter text-[#E4FF1A] glow-yellow" style={{ fontFamily: 'Unbounded' }}>
             DRAFTLY
           </div>
-          <button 
+          <button
             data-testid="menu-button"
             className="glass-panel px-6 py-2 rounded-full text-sm uppercase tracking-widest hover:border-[#E4FF1A] transition-all duration-300"
           >
@@ -119,7 +118,7 @@ const HeroSection = () => {
             <div className="text-xs uppercase tracking-[0.3em] text-[#E4FF1A] mb-4" style={{ fontFamily: 'Outfit' }}>
               Italian Engineering Excellence
             </div>
-            <h1 
+            <h1
               className="text-4xl sm:text-5xl lg:text-7xl font-black tracking-tighter uppercase leading-tight mb-6 glow-yellow"
               style={{ fontFamily: 'Unbounded' }}
             >
