@@ -1,0 +1,103 @@
+{
+  "project_name": "Draftly Lamborghini-inspired 3D Showroom",
+  "domain": "Automotive, Luxury, High-Performance",
+  "theme_and_archetype": {
+    "theme": "dark",
+    "archetype": "Archetype 5 (Luxury) with accents of Archetype 7 (Electric & Neon)",
+    "description": "A cinematic, dark, futuristic, and premium 3D supercar showroom. Relies heavily on lighting, textures, deep shadows, and neon/metallic highlights."
+  },
+  "typography": {
+    "primary_heading_font": "Unbounded",
+    "secondary_heading_font": "Outfit",
+    "body_font": "Manrope",
+    "rules": {
+      "headings": "Tight letter spacing (tracking-tighter), aggressive wide appearance, primarily uppercase for small labels (tracking-[0.2em]). Limit max H1 to text-6xl for elegance.",
+      "body": "Clean, highly legible geometric sans, leading-relaxed for long text, high contrast.",
+      "dashboard_numbers": "Unbounded or JetBrains Mono for technical specs and animated counters."
+    },
+    "hierarchy": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl font-black tracking-tighter uppercase",
+      "h2": "text-3xl sm:text-4xl font-bold tracking-tight",
+      "h3": "text-xl sm:text-2xl font-semibold",
+      "body": "text-base font-medium text-white/80",
+      "overline": "text-xs font-bold uppercase tracking-[0.2em] text-primary"
+    }
+  },
+  "color_palette": {
+    "background": {
+      "primary": "#050505",
+      "secondary": "#0A0A0A"
+    },
+    "surfaces": {
+      "glass": "bg-white/5",
+      "glass_blur": "backdrop-blur-xl",
+      "glass_border": "border-white/10"
+    },
+    "accents": {
+      "primary": "#E4FF1A",
+      "secondary": "#00FF66",
+      "gold": "#F2C94C",
+      "carbon": "#1A1A1A",
+      "red": "#FF3B30",
+      "ice_blue": "#00F0FF"
+    },
+    "text": {
+      "primary": "#FFFFFF",
+      "secondary": "#A3A3A3",
+      "muted": "#737373"
+    }
+  },
+  "surface_strategies": {
+    "floating_panels": "Glassmorphism (The 'Crystal' Variant) heavily used over 3D scenes. bg-black/40 with backdrop-blur-2xl, 1px border-white/10, shadow-[0_8px_32px_rgba(0,0,0,0.5)].",
+    "bento_grids": "For performance and models section. Dark flat backgrounds, subtle 1px border-white/5, hover triggers glowing neon borders (e.g. border-[#E4FF1A]/50).",
+    "hotspots": "Glowing circular rings using absolute positioning and ping/pulse animations over the 3D canvas."
+  },
+  "layout_and_spacing": {
+    "hero": "100vh height, absolute positioned UI layered over the React Three Fiber canvas. UI elements pinned to corners/edges with generous padding (p-8 to p-12).",
+    "sections": "Scroll-based transitions. Use spacious gaps (gap-8 to gap-16).",
+    "bento_grid": "grid-cols-1 md:grid-cols-4 gap-6 for the performance dashboard. Dense data, sleek gauges.",
+    "alignment": "Optical alignment. Left-align text for readability on floating panels, center hero text if symmetrical."
+  },
+  "3d_and_motion": {
+    "libraries_required": [
+      "@react-three/fiber",
+      "@react-three/drei",
+      "framer-motion",
+      "react-countup"
+    ],
+    "scene_setup": {
+      "canvas": "Full screen fixed or sticky canvas behind content.",
+      "lighting": "Cinematic. Dramatic spotlights, Environment preset='night' or custom studio lighting. Soft shadows.",
+      "environment": "Reflective floor, fog (fog color #050505), particles for atmosphere."
+    },
+    "interactions": {
+      "scroll": "Use ScrollControls from @react-three/drei for camera movement mapping to scroll.",
+      "hover": "Hover tilt on cards (Framer Motion whileHover={{ scale: 1.02, rotateX: 2, rotateY: 2 }}).",
+      "hotspots": "Clickable 3D objects mapping to HTML overlays (using <Html> from drei)."
+    }
+  },
+  "component_guidelines": {
+    "buttons": "Ghost or glassy by default with primary accent border on hover. text-sm uppercase tracking-widest. Animated neon glow effect on active states.",
+    "customizer": "Sidebar or bottom panel using Shadcn UI components (Tabs, Radio Groups, Sliders) heavily customized with glassmorphism to blend with the 3D scene.",
+    "dashboard_counters": "Large Unbounded typography with glowing text-shadow, powered by count-up animations.",
+    "booking_form": "Shadcn Form embedded inside a dark glass panel, input fields with bg-white/5, border-white/10, focus:border-[#E4FF1A].",
+    "testing": "All interactive elements (buttons, inputs, hotspots, customizer options) MUST include data-testid (e.g., data-testid='explore-showroom-btn')."
+  },
+  "media": {
+    "textures": {
+      "carbon_fiber_1": "https://images.pexels.com/photos/17370583/pexels-photo-17370583.jpeg",
+      "carbon_fiber_2": "https://images.pexels.com/photos/596815/pexels-photo-596815.jpeg"
+    },
+    "3d_models": {
+      "instruction": "Use a placeholder free glTF supercar model from a CDN, or construct a stylized abstract vehicle silhouette using basic Drei shapes if model fetch fails. Ensure the material reflects environment lighting (MeshPhysicalMaterial with high metalness and clearcoat)."
+    }
+  },
+  "instructions_to_main_agent": [
+    "1. Initialize React Three Fiber canvas as the base layer of the application (z-index 0).",
+    "2. Layer standard DOM UI over the canvas using Framer Motion for entrance animations.",
+    "3. Implement scroll-linked camera animations using @react-three/drei ScrollControls.",
+    "4. Construct the customizer state globally to immediately update 3D model materials (color, rims).",
+    "5. Ensure deep contrast: avoid pure black/white, use tinted obsidians and stark neon highlights.",
+    "6. Adhere to data-testid requirements for all UI."
+  ]
+}
